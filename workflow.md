@@ -27,7 +27,7 @@ Focus: Define requirements, set up infrastructure, and prepare data.
   - Outline architecture diagram (e.g., using Draw.io or Lucidchart): Show data flow from Kafka → PostgreSQL → Grafana.
   - Define success metrics (e.g., query time <5s, ingestion latency <1s).
   - Install prerequisites: Docker, PostgreSQL client, Kafka binaries, Grafana.                 Done
-  - Explore dataset: Load `synthetic_healthcare_300k.csv` into a temporary tool (e.g., pandas in Jupyter) to verify structure and sample data.
+  - Explore dataset: Load `synthetic_healthcare_300k.csv` into a temporary tool (e.g., pandas in Jupyter) to verify structure and sample data.           Done
   - Milestone: Project plan document and repo initialized.
   - Estimated Effort: 6-8 hours.
 
