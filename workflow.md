@@ -23,7 +23,7 @@ Focus: Define requirements, set up infrastructure, and prepare data.
 
 - **Day 1: Project Kickoff and Planning**
   - Review problem statement, objectives, and schema in detail.
-  - Create project repository (e.g., GitHub) with folders for scripts, docs, and configs.
+  - Create project repository (e.g., GitHub) with folders for scripts, docs, and configs.              Done
   - Outline architecture diagram (e.g., using Draw.io or Lucidchart): Show data flow from Kafka → PostgreSQL → Grafana.
   - Define success metrics (e.g., query time <5s, ingestion latency <1s).
   - Install prerequisites: Docker, PostgreSQL client, Kafka binaries, Grafana.                 Done
