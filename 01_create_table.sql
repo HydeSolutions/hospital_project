@@ -30,6 +30,9 @@
 
 
 -- create table subset1 as select * from hospital_data
+-- create table subset10 as select * from hospital_data
+
 
 
 -- select * from subset1
+-- select * from subset10
