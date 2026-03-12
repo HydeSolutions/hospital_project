@@ -22,19 +22,19 @@ This plan includes daily tasks, milestones, dependencies, and estimated effort. 
 Focus: Define requirements, set up infrastructure, and prepare data.
 
 - **Day 1: Project Kickoff and Planning**
-  - Review problem statement, objectives, and schema in detail.
+  - Review problem statement, objectives, and schema in detail.       Done
   - Create project repository (e.g., GitHub) with folders for scripts, docs, and configs.              Done
-  - Outline architecture diagram (e.g., using Draw.io or Lucidchart): Show data flow from Kafka → PostgreSQL → Grafana.
-  - Define success metrics (e.g., query time <5s, ingestion latency <1s).
+  - Outline architecture diagram (e.g., using Draw.io or Lucidchart): Show data flow from Kafka → PostgreSQL → Grafana.                   Done
+  - Define success metrics (e.g., query time <5s, ingestion latency <1s).         done
   - Install prerequisites: Docker, PostgreSQL client, Kafka binaries, Grafana.                 Done
   - Explore dataset: Load `synthetic_healthcare_300k.csv` into a temporary tool (e.g., pandas in Jupyter) to verify structure and sample data.           Done
   - Milestone: Project plan document and repo initialized.
   - Estimated Effort: 6-8 hours.
 
 - **Day 2: Data Preparation and Schema Design**
-  - Clean and validate dataset: Check for duplicates, nulls, date consistency (e.g., using Python/pandas script).
-  - Design PostgreSQL schema: Write `CREATE TABLE` script for `hospital_admissions` with data types, constraints (e.g., CHECKs), and primary key (e.g., composite on name + date_of_admission).
-  - Add initial indexes: B-tree on `date_of_admission`, `medical_condition`; GIN on timestamps.
+  - Clean and validate dataset: Check for duplicates, nulls, date consistency (e.g., using Python/pandas script).   Done
+  - Design PostgreSQL schema: Write `CREATE TABLE` script for `hospital_admissions` with data types, constraints (e.g., CHECKs), and primary key (e.g., composite on name + date_of_admission).     Done
+  - Add initial indexes: B-tree on `date_of_admission`, `medical_condition`; GIN on timestamps.   DONE
   - Create sample data subsets: 1k, 10k, and full 300k rows for testing.
   - Document data assumptions (e.g., handling timestamps in UTC+03 for Riyadh timezone).
   - Milestone: Schema SQL script and cleaned CSV ready.
