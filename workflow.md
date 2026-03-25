@@ -35,13 +35,13 @@ Focus: Define requirements, set up infrastructure, and prepare data.
   - Clean and validate dataset: Check for duplicates, nulls, date consistency (e.g., using Python/pandas script).   Done
   - Design PostgreSQL schema: Write `CREATE TABLE` script for `hospital_admissions` with data types, constraints (e.g., CHECKs), and primary key (e.g., composite on name + date_of_admission).     Done
   - Add initial indexes: B-tree on `date_of_admission`, `medical_condition`; GIN on timestamps.   DONE
-  - Create sample data subsets: 1k, 10k, and full 300k rows for testing.
-  - Document data assumptions (e.g., handling timestamps in UTC+03 for Riyadh timezone).
+  - Create sample data subsets: 1k, 10k, and full 300k rows for testing.      DONE
+  - Document data assumptions (e.g., handling timestamps in UTC+03 for Riyadh timezone).    Done
   - Milestone: Schema SQL script and cleaned CSV ready.
   - Estimated Effort: 7 hours.
 
 - **Day 3: Set Up PostgreSQL Database**
-  - Install and configure PostgreSQL locally or via Docker (e.g., `docker run --name postgres-db -e POSTGRES_PASSWORD=pass -p 5432:5432 -d postgres`).
+  - Install and configure PostgreSQL locally or via Docker (e.g., `docker run --name postgres-db -e POSTGRES_PASSWORD=pass -p 5432:5432 -d postgres`).    DONE
   - Run schema creation script and load sample data (e.g., using `psql` or `pg_dump` for initial import; use `\copy` for CSV).
   - Test basic queries: SELECT COUNT(*), simple aggregations to verify data integrity.
   - Set up user roles and security: Create read/write users; enable SSL if needed.

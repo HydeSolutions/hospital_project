@@ -1,12 +1,14 @@
 -- create database hospital_project
 
+-- drop table IF EXISTS hospital_data;
 
 -- Create table hospital_data (
 --     Name varchar(100),
 --     Age int,
+--     PRIMARY KEY ("Date of Admission"),
 --     GENDER varchar(10),
 --     "Blood Type" varchar(10),
---     "MedicalCondition" varchar(255),
+--     "Medical Condition" varchar(255),
 --     "Doctor" varchar (255),
 --     Hospital VARCHAR(100),
 --     "Insurance Provider" varchar(150),
@@ -21,18 +23,23 @@
 -- )
 
 
+-- Select * from information_schema.tables;
+
 -- SELECT * from hospital_data
 
 
 
 -- CREATE INDEX idx_date_of_admission ON hospital_data ("Date of Admission");
--- CREATE INDEX idx_medical_condition ON hospital_data ("MedicalCondition");
+-- CREATE INDEX idx_medical_condition ON hospital_data ("Medical Condition");
 
 
--- create table subset1 as select * from hospital_data
--- create table subset10 as select * from hospital_data
+-- create table subset1k as select * from hospital_data
+-- create table subset10k as select * from hospital_data
+
+-- drop table subset1k;
+-- drop table subset10k;
 
 
 
--- select * from subset1
--- select * from subset10
+-- select * from subset1k;
+-- select * from subset10k;
