@@ -42,15 +42,15 @@ Focus: Define requirements, set up infrastructure, and prepare data.
 
 - **Day 3: Set Up PostgreSQL Database**
   - Install and configure PostgreSQL locally or via Docker (e.g., `docker run --name postgres-db -e POSTGRES_PASSWORD=pass -p 5432:5432 -d postgres`).    DONE
-  - Run schema creation script and load sample data (e.g., using `psql` or `pg_dump` for initial import; use `\copy` for CSV).
-  - Test basic queries: SELECT COUNT(*), simple aggregations to verify data integrity.
+  - Run schema creation script and load sample data (e.g., using `psql` or `pg_dump` for initial import; use `\copy` for CSV).  Done
+  - Test basic queries: SELECT COUNT(*), simple aggregations to verify data integrity.  Done
   - Set up user roles and security: Create read/write users; enable SSL if needed.
-  - Backup initial database state.
+  - Backup initial database state.    Done
   - Milestone: Functional PostgreSQL instance with sample data loaded.
   - Estimated Effort: 6 hours.
 
 - **Day 4: Set Up Kafka Environment**
-  - Install Kafka via Docker (e.g., use Confluent Platform or Bitnami stack: `docker-compose` with Zookeeper, Broker, Schema Registry).
+  - Install Kafka via Docker (e.g., use Confluent Platform or Bitnami stack: `docker-compose` with Zookeeper, Broker, Schema Registry).   Done
   - Create topics: `admissions-inbound` for raw events, `processed-admissions` for enriched data.
   - Configure Kafka Connect for PostgreSQL sink (e.g., JDBC connector to stream data into DB).
   - Write a simple producer script (Python with `confluent-kafka`): Simulate streaming 1k admission events from CSV.
