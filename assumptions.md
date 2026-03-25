@@ -5,3 +5,4 @@
 4. All the hospitals are in czech republic
 5. Null insurance means that the person is not insured at all.
 6. Billing amount is in euros
+7. Ali is read/write user and andy can only read data

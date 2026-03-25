@@ -56,3 +56,22 @@
 
 
 -- create database backup_project;
+
+-- create Role Andy with LOGIN PASSWORD 'andy@123';
+-- create Role Ali with LOGIN PASSWORD 'ali@123';
+
+-- GRANT CONNECT ON DATABASE hospital_project TO ali;
+-- GRANT CONNECT ON DATABASE hospital_project TO andy;
+
+-- GRANT USAGE ON SCHEMA public TO ali;
+
+-- GRANT pg_read_all_data TO Andy;
+-- GRANT pg_read_all_data TO Ali;
+-- GRANT pg_write_all_data TO Ali;
+
+-- REVOKE ALL ON DATABASE hospital_project FROM PUBLIC;
+-- REVOKE CREATE ON SCHEMA public FROM PUBLIC;
+-- SELECT current_user;
+
+-- select count(*) from hospital_data;
+
