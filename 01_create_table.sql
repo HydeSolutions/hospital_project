@@ -75,3 +75,8 @@
 
 -- select count(*) from hospital_data;
 
+-- TRUNCATE table hospital_data;
+
+-- create table main as select * from hospital_data limit 0;
+
+-- select Count(*) from main;
