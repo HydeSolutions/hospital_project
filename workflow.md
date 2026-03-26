@@ -1,6 +1,6 @@
 ### Project Workflow: Real-Time Healthcare Analytics Platform
 
-To successfully implement the **Real-Time Healthcare Analytics Platform** as outlined in the problem statement, I've structured a detailed day-by-day workflow assuming a **4-week (20-working-day) timeline**. This assumes a single developer or small team working full-time (8 hours/day), with access to necessary hardware/software (e.g., a development machine with Docker, PostgreSQL, Kafka, and Grafana installed). The timeline is phased for efficiency:
+To successfully implement the **Real-Time Healthcare Analytics Platform** as outlined in the problem statement, I've structured a detailed day-by-day workflow assuming a **4-week (20-working-day) timeline**. This assumes a single developer or small team working full-time (8 hours/day), with access to necessary hardware/software (e.g., a development machine with Docker, PostgreSQL, Kafka, and Metabase installed). The timeline is phased for efficiency:
 
 - **Week 1 (Days 1-5)**: Planning and Environment Setup
 - **Week 2 (Days 6-10)**: Data Ingestion and Database Development
@@ -11,7 +11,7 @@ This plan includes daily tasks, milestones, dependencies, and estimated effort. 
 
 #### Assumptions and Prerequisites
 - Dataset: Use the provided `synthetic_healthcare_300k.csv` (or generate it if needed).
-- Tools: PostgreSQL (v15+), Apache Kafka (v3+), Grafana (v10+), Docker for containerization.
+- Tools: PostgreSQL (v15+), Apache Kafka (v3+), Metabase (v10+), Docker for containerization.
 - Environment: Local dev setup; cloud (e.g., AWS/GCP) for production-like testing.
 - Testing Data: Subset the 300k rows for initial tests (e.g., 10k rows).
 - Daily Routine: Start with a 15-min standup/review of previous day; end with commit to Git repo and notes on blockers.
@@ -24,9 +24,9 @@ Focus: Define requirements, set up infrastructure, and prepare data.
 - **Day 1: Project Kickoff and Planning**
   - Review problem statement, objectives, and schema in detail.       Done
   - Create project repository (e.g., GitHub) with folders for scripts, docs, and configs.              Done
-  - Outline architecture diagram (e.g., using Draw.io or Lucidchart): Show data flow from Kafka → PostgreSQL → Grafana.                   Done
+  - Outline architecture diagram (e.g., using Draw.io or Lucidchart): Show data flow from Kafka → PostgreSQL → Metabase.                   Done
   - Define success metrics (e.g., query time <5s, ingestion latency <1s).         done
-  - Install prerequisites: Docker, PostgreSQL client, Kafka binaries, Grafana.                 Done
+  - Install prerequisites: Docker, PostgreSQL client, Kafka binaries, Metabase.                 Done
   - Explore dataset: Load `synthetic_healthcare_300k.csv` into a temporary tool (e.g., pandas in Jupyter) to verify structure and sample data.           Done
   - Milestone: Project plan document and repo initialized.
   - Estimated Effort: 6-8 hours.
@@ -58,12 +58,11 @@ Focus: Define requirements, set up infrastructure, and prepare data.
   - Milestone: Kafka cluster running with basic producer/consumer tested.
   - Estimated Effort: 7-8 hours.
 
-- **Day 5: Set Up Grafana and Initial Integration**
-  - Install Grafana via Docker (e.g., `docker run -d -p 3000:3000 grafana/grafana`).    Done
-  - Configure data sources: Connect to PostgreSQL (test connection).
-  - Create a basic dashboard: Add a panel for total admissions count.
-  - Integrate Kafka monitoring: Add Prometheus data source if extending to metrics.
-  - Review Week 1 progress: Run end-to-end test with sample data from Kafka to PostgreSQL to Grafana.
+- **Day 5: Set Up Metabase and Initial Integration**
+  - Install Metabase via Docker (e.g., `docker run -d -p 3000:3000 Metabase/Metabase`).    Done
+  - Configure data sources: Connect to PostgreSQL (test connection).    Done
+  - Create a basic dashboard: Add a panel for total admissions count.   Done
+  - Review Week 1 progress: Run end-to-end test with sample data from Kafka to PostgreSQL to Metabase.
   - Milestone: All tools installed and basic integration verified.
   - Estimated Effort: 6 hours.
 
@@ -117,9 +116,9 @@ Focus: Build ingestion pipeline and core SQL analytics.
 ---
 
 #### **Week 3: Analytics and Visualization Development**
-Focus: Build Grafana dashboards and integrate real-time elements.
+Focus: Build Metabase dashboards and integrate real-time elements.
 
-- **Day 11: Design Grafana Dashboards (Basics)**
+- **Day 11: Design Metabase Dashboards (Basics)**
   - Create dashboard for KPIs: Panels for total admissions, revenue by provider, avg LOS.
   - Use PostgreSQL queries as data sources for panels (e.g., time-series for YoY trends).
   - Add variables: E.g., filters for condition, year.
@@ -127,7 +126,7 @@ Focus: Build Grafana dashboards and integrate real-time elements.
   - Milestone: Core KPI dashboard built.
   - Estimated Effort: 7 hours.
 
-- **Day 12: Advanced Grafana Visualizations**
+- **Day 12: Advanced Metabase Visualizations**
   - Add panels for distributions (e.g., heatmaps for admissions by hour, pie charts for genders).
   - Implement drill-down: E.g., from condition summary to patient details.
   - Add anomaly detection: Panels for billing outliers using SQL views.
@@ -136,23 +135,23 @@ Focus: Build Grafana dashboards and integrate real-time elements.
   - Estimated Effort: 8 hours.
 
 - **Day 13: Real-Time Integration with Kafka**
-  - Set up Kafka as a Grafana data source (via plugin or Prometheus exporter).
+  - Set up Kafka as a Metabase data source (via plugin or Prometheus exporter).
   - Create alert panels: E.g., for emergency surges (using Kafka metrics).
   - Simulate real-time streaming: Run producer in loop with new events; verify dashboard updates.
-  - Add notifications: Configure Grafana alerts for thresholds (e.g., high readmissions).
+  - Add notifications: Configure Metabase alerts for thresholds (e.g., high readmissions).
   - Milestone: Real-time elements integrated.
   - Estimated Effort: 7 hours.
 
 - **Day 14: Complete Dashboards and Security**
   - Finalize remaining panels (e.g., for Questions 9-15: medication pivots, patient journeys).
-  - Add user roles in Grafana: Viewer, Editor for different stakeholders.
-  - Secure integrations: Enable authentication in Kafka/PostgreSQL/Grafana.
+  - Add user roles in Metabase: Viewer, Editor for different stakeholders.
+  - Secure integrations: Enable authentication in Kafka/PostgreSQL/Metabase.
   - Export dashboards as JSON for version control.
   - Milestone: All dashboards built and secured.
   - Estimated Effort: 6 hours.
 
 - **Day 15: Initial Testing and Iteration**
-  - Run end-to-end tests: Ingest new data via Kafka → Query in PostgreSQL → Visualize in Grafana.
+  - Run end-to-end tests: Ingest new data via Kafka → Query in PostgreSQL → Visualize in Metabase.
   - Test scalability: Query with full 300k rows; measure times.
   - Gather feedback: Simulate stakeholder review (e.g., self-review against objectives).
   - Fix bugs: E.g., query optimizations or UI tweaks.
@@ -175,15 +174,15 @@ Focus: Ensure quality, deploy, and wrap up.
 - **Day 17: Optimization and Performance Tuning**
   - Analyze slow components: Use EXPLAIN on queries; refactor as needed.
   - Optimize Kafka: Partition topics, adjust batch sizes.
-  - Tune Grafana: Cache queries, optimize panel refreshes.
+  - Tune Metabase: Cache queries, optimize panel refreshes.
   - Benchmark: Achieve <5s query times, <1s ingestion.
   - Milestone: System optimized for production-like loads.
   - Estimated Effort: 7 hours.
 
 - **Day 18: Deployment Preparation**
-  - Containerize full stack: Write Docker Compose for PostgreSQL + Kafka + Grafana.
+  - Containerize full stack: Write Docker Compose for PostgreSQL + Kafka + Metabase.
   - Deploy to cloud (e.g., AWS EC2 or EKS): Set up instances, migrate data.
-  - Configure monitoring: Add Prometheus/Grafana for system metrics.
+  - Configure monitoring: Add Prometheus/Metabase for system metrics.
   - Test deployment: Run in staging environment.
   - Milestone: Deployable stack ready.
   - Estimated Effort: 8 hours.

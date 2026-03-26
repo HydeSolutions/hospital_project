@@ -18,15 +18,14 @@
 --     "Test Results" varchar(150),
 --     "Date of Admission" TIMESTAMP NOT NULL,
 --     "Discharge Date" TIMESTAMP UNIQUE,
---     PRIMARY KEY ("Date of Admission")
 -- )
 
 
--- Select * from information_schema.tables;
+-- Select * from information_schema.tables where table_name = 'main';
 
 -- SELECT Count(*) from hospital_data;
 
-
+-- drop table hospital_data;
 
 -- CREATE INDEX idx_date_of_admission ON hospital_data ("Date of Admission");
 -- CREATE INDEX idx_medical_condition ON hospital_data ("Medical Condition");
@@ -79,4 +78,5 @@
 
 -- create table main as select * from hospital_data limit 0;
 
--- select Count(*) from main;
+-- select * from main;
+

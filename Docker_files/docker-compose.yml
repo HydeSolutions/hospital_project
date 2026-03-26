@@ -134,32 +134,19 @@ services:
           -P /usr/share/confluent-hub-components/confluentinc-kafka-connect-jdbc/lib/
         echo "Starting Kafka Connect..."
         /etc/confluent/docker/run
-
-  grafana:
-    image: grafana/grafana:11.2.0
-    container_name: grafana
+  metabase:
+    image: metabase/metabase:latest
+    container_name: metabase
     restart: unless-stopped
     ports:
       - "3000:3000"
-    volumes:
-      - grafana-data:/var/lib/grafana
-      # Optional: persist provisioning & dashboards
-      # - ./grafana/provisioning:/etc/grafana/provisioning
-      # - ./grafana/dashboards:/var/lib/grafana/dashboards
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin123        # change this in production!
-      - GF_USERS_ALLOW_SIGN_UP=false
-      # Optional: disable telemetry
-      - GF_ANALYTICS_REPORTING_ENABLED=false
     depends_on:
       - postgres
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "http://localhost:3000/api/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
+    hostname: metabase
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
 # Define the named volume (persists even if container is removed)
 volumes:
   pgdata:
   mssql2019-data:
-  grafana-data:

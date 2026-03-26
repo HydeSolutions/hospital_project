@@ -27,7 +27,7 @@ def delivery_report(err, msg):
 # -----------------------------
 # Load CSV
 # -----------------------------
-df = pd.read_csv("D:\\Data_Analysis\\Projects\\hospital_project\\Kafka\\admissions.csv")
+df = pd.read_csv("D:\\Data_Analysis\\Projects\\hospital_project\\Kafka\\python_scripts\\admissions.csv")
 
 # Clean column names (VERY IMPORTANT for your file)
 df.columns = df.columns.str.strip()
@@ -43,18 +43,18 @@ for i, row in df.iterrows():
         "name": row["Name"],
         "age": int(row["Age"]),
         "gender": row["Gender"],
-        "blood_type": row["Blood Type"],
-        "medical_condition": row["Medical Condition"],
-        "date_of_admission": row["Date of Admission"],
-        "doctor": row["Doctor"],
-        "hospital": row["Hospital"],
-        "insurance_provider": row["Insurance Provider"],
-        "billing_amount": float(row["Billing Amount"]),
-        "room_number": int(row["Room Number"]),
-        "admission_type": row["Admission Type"],
-        "discharge_date": row["Discharge Date"],
-        "medication": row["Medication"],
-        "test_results": row["Test Results"],
+        "Blood Type": row["Blood Type"],
+        "Medical Condition": row["Medical Condition"],
+        "Date of Admission": row["Date of Admission"],
+        "Doctor": row["Doctor"],
+        "Hospital": row["Hospital"],
+        "Insurance Provider": row["Insurance Provider"],
+        "Billing Amount": float(row["Billing Amount"]),
+        "Room Number": int(row["Room Number"]),
+        "Admission Type": row["Admission Type"],
+        "Discharge Date": row["Discharge Date"],
+        "Medication": row["Medication"],
+        "Test Results": row["Test Results"],
         "event_id": i,
         "timestamp": time.time()
     }
