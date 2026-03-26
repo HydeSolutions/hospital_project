@@ -2,7 +2,7 @@
 echo ========================================
 echo    Kafka Topic Creator (Docker)
 echo ========================================
-# Replace CONTAINER_NAME if it's diffrent 
+REM Replace CONTAINER_NAME if it's diffrent 
 set CONTAINER_NAME=kafka
 set BOOTSTRAP_SERVER=localhost:9092
 
@@ -22,7 +22,7 @@ if "%REPLICATION%"=="" set REPLICATION=1
 echo Creating topic: %TOPIC%
 echo Partitions: %PARTITIONS%   Replication: %REPLICATION%
 
-docker exec -it %CONTAINER_NAME% kafka-topics.sh ^
+docker exec -it %CONTAINER_NAME% kafka-topics ^
   --create ^
   --topic %TOPIC% ^
   --bootstrap-server %BOOTSTRAP_SERVER% ^

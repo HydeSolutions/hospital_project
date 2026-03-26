@@ -51,15 +51,15 @@ Focus: Define requirements, set up infrastructure, and prepare data.
 
 - **Day 4: Set Up Kafka Environment**
   - Install Kafka via Docker (e.g., use Confluent Platform or Bitnami stack: `docker-compose` with Zookeeper, Broker, Schema Registry).   Done
-  - Create topics: `admissions-inbound` for raw events, `processed-admissions` for enriched data.
-  - Configure Kafka Connect for PostgreSQL sink (e.g., JDBC connector to stream data into DB).
-  - Write a simple producer script (Python with `confluent-kafka`): Simulate streaming 1k admission events from CSV.
-  - Test end-to-end: Produce messages → Consume and log.
+  - Create topics: `admissions-inbound` for raw events, `processed-admissions` for enriched data.   Done
+  - Configure Kafka Connect for PostgreSQL sink (e.g., JDBC connector to stream data into DB).    Done
+  - Write a simple producer script (Python with `confluent-kafka`): Simulate streaming 1k admission events from CSV.    Done
+  - Test end-to-end: Produce messages → Consume and log.      Done , Confiremed Kafka is working great
   - Milestone: Kafka cluster running with basic producer/consumer tested.
   - Estimated Effort: 7-8 hours.
 
 - **Day 5: Set Up Grafana and Initial Integration**
-  - Install Grafana via Docker (e.g., `docker run -d -p 3000:3000 grafana/grafana`).
+  - Install Grafana via Docker (e.g., `docker run -d -p 3000:3000 grafana/grafana`).    Done
   - Configure data sources: Connect to PostgreSQL (test connection).
   - Create a basic dashboard: Add a panel for total admissions count.
   - Integrate Kafka monitoring: Add Prometheus data source if extending to metrics.
