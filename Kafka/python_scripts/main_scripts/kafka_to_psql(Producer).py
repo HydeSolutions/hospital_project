@@ -35,33 +35,44 @@ def get_db_connection():
         sys.exit(1)
 
 def parse_timestamp(date_str):
-    if not date_str or str(date_str).lower() in ('nan', 'none', '', 'null', 'nat'):
+    if not date_str or str(date_str).strip().lower() in ('nan', 'none', '', 'null', 'nat'):
         return None
     
+    date_str = str(date_str).strip()
+    
+    # Handle the problem: timestamps with more than 6 decimal places (nanoseconds)
+    # Python's %f only supports up to 6 digits (microseconds)
+    if '.' in date_str:
+        main_part, fractional_part = date_str.split('.', 1)
+        # Keep only the first 6 decimal digits (truncate microseconds, discard nano)
+        if len(fractional_part) > 6:
+            fractional_part = fractional_part[:6]
+            date_str = main_part + '.' + fractional_part
+    
+    # Try multiple common formats
     formats = [
-        '%Y-%m-%d %H:%M:%S',
-        '%Y-%m-%d',
-        '%m/%d/%Y %H:%M:%S',
-        '%m/%d/%Y',
-        '%d/%m/%Y %H:%M:%S',
-        '%d/%m/%Y'
+        "%Y-%m-%d %H:%M:%S.%f",   # 2019-03-31 05:22:39.424531
+        "%Y-%m-%d %H:%M:%S",      # without fractional seconds
+        "%Y-%m-%d",               # date only
     ]
     
     for fmt in formats:
         try:
-            return datetime.strptime(str(date_str).strip(), fmt)
+            return datetime.strptime(date_str, fmt)
         except ValueError:
             continue
     
+    # If nothing works, log warning and return None (or raise if you prefer)
     print(f"⚠️ Could not parse date: {date_str}")
     return None
+ 
 
 def insert_batch(cursor, events):
     if not events:
         return 0
     
     insert_query = """
-        INSERT INTO hospital_data (
+        INSERT INTO main (
             "Name", "Age", "GENDER", "Blood Type", "Medical Condition", 
             "Doctor", "Hospital", "Insurance Provider", "Billing Amount", 
             "Room Number", "Admission Type", "Medication", "Test Results", 

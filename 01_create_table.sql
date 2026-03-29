@@ -85,3 +85,6 @@
 -- SELECT conname, pg_get_constraintdef(oid) 
 -- FROM pg_constraint 
 -- WHERE conrelid = 'hospital_data'::regclass;
+
+
+-- select Count(*) from main;

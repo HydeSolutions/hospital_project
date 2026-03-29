@@ -72,16 +72,16 @@ Focus: Define requirements, set up infrastructure, and prepare data.
 Focus: Build ingestion pipeline and core SQL analytics.
 
 - **Day 6: Enhance Kafka Ingestion Pipeline**
-  - Implement full producer: Script to read CSV and stream all 300k rows as JSON events to `admissions-inbound`.
-  - Add schema validation: Use Kafka Schema Registry for event schemas (e.g., Avro/JSON for admission records).
-  - Set up consumer: Python script to process events (e.g., enrich with derived fields like LOS) and insert into PostgreSQL via JDBC.
-  - Handle errors: Implement retry logic and dead-letter queue.
-  - Test with 10k rows: Measure ingestion speed and latency.
+  - Implement full producer: Script to read CSV and stream all 300k rows as JSON events to `admissions-inbound`.  Done
+  - Add schema validation: Use Kafka Schema Registry for event schemas (e.g., Avro/JSON for admission records). Skipped
+  - Set up consumer: Python script to process events (e.g., enrich with derived fields like LOS) and insert into PostgreSQL via JDBC.   Done
+  - Handle errors: Implement retry logic and dead-letter queue.       Done 
+  - Test with 10k rows: Measure ingestion speed and latency.          Done Tested with 300000 datasets
   - Milestone: Reliable streaming pipeline from CSV to DB.
   - Estimated Effort: 7 hours.
 
 - **Day 7: Load Full Dataset and Optimize DB**
-  - Stream full 300k rows via Kafka into PostgreSQL.
+  - Stream full 300k rows via Kafka into PostgreSQL.      Done
   - Add advanced indexes: Composite on `(medical_condition, admission_type)`; partial indexes for frequent filters.
   - Create materialized views: E.g., for average LOS by condition (`CREATE MATERIALIZED VIEW avg_los AS ...`).
   - Tune PostgreSQL config: Adjust work_mem, shared_buffers for large queries.

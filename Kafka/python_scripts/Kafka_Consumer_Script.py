@@ -21,4 +21,4 @@ while True:
         print("Error:", msg.error())
         continue
 
-    print(f"📦 Received: {msg.value().decode('utf-8')}")
+    print(f"Received: {msg.value().decode('utf-8')}")
