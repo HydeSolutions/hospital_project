@@ -62,7 +62,7 @@ Focus: Define requirements, set up infrastructure, and prepare data.
   - Install Metabase via Docker (e.g., `docker run -d -p 3000:3000 Metabase/Metabase`).    Done
   - Configure data sources: Connect to PostgreSQL (test connection).    Done
   - Create a basic dashboard: Add a panel for total admissions count.   Done
-  - Review Week 1 progress: Run end-to-end test with sample data from Kafka to PostgreSQL to Metabase.
+  - Review Week 1 progress: Run end-to-end test with sample data from Kafka to PostgreSQL to Metabase.    Done
   - Milestone: All tools installed and basic integration verified.
   - Estimated Effort: 6 hours.
 

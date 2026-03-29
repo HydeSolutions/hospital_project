@@ -3,13 +3,13 @@
 -- drop table IF EXISTS hospital_data;
 
 -- Create table hospital_data (
---     Name varchar(100) Default 'not Found',
---     Age int,
---     GENDER varchar(10),
+--    "Name" varchar(100) Default 'not Found',
+--     "Age" int,
+--     "GENDER" varchar(10),
 --     "Blood Type" varchar(10),
 --     "Medical Condition" varchar(255),
 --     "Doctor" varchar (255),
---     Hospital VARCHAR(100),
+--     "Hospital" VARCHAR(100),
 --     "Insurance Provider" varchar(150),
 --     "Billing Amount" decimal(15,2),
 --     "Room Number" int,
@@ -17,7 +17,7 @@
 --     "Medication" VARCHAR(150),
 --     "Test Results" varchar(150),
 --     "Date of Admission" TIMESTAMP NOT NULL,
---     "Discharge Date" TIMESTAMP UNIQUE,
+--     "Discharge Date" TIMESTAMP
 -- )
 
 
@@ -76,7 +76,12 @@
 
 -- TRUNCATE table hospital_data;
 
+-- drop table main;
 -- create table main as select * from hospital_data limit 0;
 
 -- select * from main;
 
+-- -- Check constraints on the table
+-- SELECT conname, pg_get_constraintdef(oid) 
+-- FROM pg_constraint 
+-- WHERE conrelid = 'hospital_data'::regclass;
