@@ -88,3 +88,34 @@
 
 
 -- select Count(*) from main;
+-- select * from main limit 100;
+
+-- CREATE INDEX idx_medical_condition ON main("Medical Condition", "Admission Type");
+-- select * from main limit 100;
+
+
+-- alter table main add COLUMN  "avg_length_of_stay" INTERVAL default '0 days'::interval;
+-- alter table main drop COLUMN "avg_length_of_stay";
+
+
+
+
+-- update main set "avg_length_of_stay" = ("Discharge Date" - "Date of Admission");
+-- select "avg_length_of_stay" from main limit 100;
+
+-- create MATERIALIZED VIEW mv_av_los as select "avg_length_of_stay" from main 
+
+
+-- VACUUM:
+-- Cleans up "dead tuples" (old row versions left behind after updates or deletes).
+-- Marks that space as reusable for future inserts.
+-- Prevents table bloat (your table growing much larger than the actual data size).
+-- Helps with transaction ID management (avoids future wraparound issues).
+
+-- ANALYZE:
+-- Collects fresh statistics about your data (how many rows, value distribution, most/least common values, etc.).
+-- These statistics are used by the PostgreSQL query planner to decide the best way to run your queries (e.g., which index to use, join order, etc.).
+
+
+
+-- VACUUM ANALYZE main;

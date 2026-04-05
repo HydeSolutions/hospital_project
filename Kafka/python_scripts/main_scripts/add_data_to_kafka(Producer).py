@@ -27,7 +27,7 @@ def delivery_report(err, msg):
         if delivered % 100 == 0 or delivered == target:
             print(f"✅ Progress: {delivered}/{target}")
 
-df = pd.read_csv("D:\\Data_Analysis\\Projects\\hospital_project\\Project_CSVs\\synthetic_healthcare_300k.csv")
+df = pd.read_csv("C:\\Data\\Data_Analysis\\Projects\\hospital_project\\Project_CSVs\\synthetic_healthcare_300k.csv")
 df.columns = df.columns.str.strip()
 df = df.sample(n=target, replace=True).reset_index(drop=True)
 

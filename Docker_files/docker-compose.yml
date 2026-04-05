@@ -1,56 +1,83 @@
 version: '3.9'
 
 services:
-  postgres:
-    image: postgres:14.21-trixie
-    container_name: my-postgres
-    restart: unless-stopped          # auto-restart unless you manually stop it
-    environment:
-      POSTGRES_PASSWORD: Hello@123
-      # POSTGRES_DB: employee
-      # Optional: set a custom username (default is 'postgres')
-      # POSTGRES_USER: myuser
+  # postgres:
+  #   image: postgres:14.21-trixie
+  #   container_name: my-postgres
+  #   restart: unless-stopped          # auto-restart unless you manually stop it
+  #   environment:
+  #     POSTGRES_PASSWORD: Hello@123
+  #     # POSTGRES_DB: employee
+  #     # Optional: set a custom username (default is 'postgres')
+  #     # POSTGRES_USER: myuser
+  #   ports:
+  #     - "5432:5432"                  # host:container
+  #   volumes:
+  #     # Option 1: Named volume (Docker manages it – recommended)
+  #     - pgdata:/var/lib/postgresql/data
+
+  #     # Option 2: Bind mount to D: drive (uncomment if you prefer)
+  #     # - //d/pgdata:/var/lib/postgresql/data
+
+  #   # Optional: healthcheck (good practice)
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U postgres"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+  # # Optional: limit resources (good if laptop gets hot/slow)
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         cpus: '2.0'
+  #         memory: 2G
+  # mssql-2019:
+  #   image: mcr.microsoft.com/mssql/server:2019-latest
+  #   container_name: mssql-2019
+  #   restart: unless-stopped
+  #   environment:
+  #     ACCEPT_EULA: "Y"
+  #     MSSQL_PID: Developer
+  #     MSSQL_SA_PASSWORD: Hello@123
+  #   ports:
+  #     - "1433:1433"                # MySQL port on your host
+  #   volumes:
+  #     # Option A: Named volume
+  #      - mssql2019-data:/var/opt/mssql
+  #     # Option B: On D: drive (uncomment & create D:\mysqldata first)
+  #    # - //d/mssql-data:/var/opt/mssql
+  #   healthcheck:
+  #     test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P ${MSSQL_SA_PASSWORD} -Q "SELECT 1" || exit 1
+  #     interval: 15s
+  #     timeout: 10s
+  #     retries: 5
+
+
+  timescaledb:
+    image: timescale/timescaledb:latest-pg18     # or latest-pg16 / latest-pg17
+    # container_name: timescaledb
+    restart: unless-stopped
     ports:
-      - "5432:5432"                  # host:container
+      - "5432:5432"                              # Change host port if 5432 is already used
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Hello@123    # ← Change this!
+      POSTGRES_DB: timeseries_db                 # Default database name
+      TIMESCALEDB_TELEMETRY: "off"               # Recommended to disable telemetry
     volumes:
-      # Option 1: Named volume (Docker manages it – recommended)
-      # - pgdata:/var/lib/postgresql/data
-
-      # Option 2: Bind mount to D: drive (uncomment if you prefer)
-      - //d/pgdata:/var/lib/postgresql/data
-
-    # Optional: healthcheck (good practice)
+      - timescaledb_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
       timeout: 5s
       retries: 5
-  # Optional: limit resources (good if laptop gets hot/slow)
-    deploy:
-      resources:
-        limits:
-          cpus: '2.0'
-          memory: 2G
-  mssql-2019:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    container_name: mssql-2019
-    restart: unless-stopped
-    environment:
-      ACCEPT_EULA: "Y"
-      MSSQL_PID: Developer
-      MSSQL_SA_PASSWORD: Hello@123
-    ports:
-      - "1433:1433"                # MySQL port on your host
-    volumes:
-      # Option A: Named volume
-       - mssql2019-data:/var/opt/mssql
-      # Option B: On D: drive (uncomment & create D:\mysqldata first)
-     # - //d/mssql-data:/var/opt/mssql
-    healthcheck:
-      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P ${MSSQL_SA_PASSWORD} -Q "SELECT 1" || exit 1
-      interval: 15s
-      timeout: 10s
-      retries: 5
+    command: 
+      - postgres 
+      - -c 
+      - shared_preload_libraries=timescaledb
+      - -c 
+      - timescaledb.telemetry_level=off
+
 
   zookeeper:
       image: confluentinc/cp-zookeeper:7.5.0
@@ -95,45 +122,45 @@ services:
       retries: 8
       start_period: 30s
 
-  connect:
-    image: confluentinc/cp-kafka-connect:7.5.0
-    container_name: connect
-    restart: unless-stopped
-    depends_on:
-      kafka:
-        condition: service_healthy
-    ports:
-      - "8083:8083"
-    environment:
-      CONNECT_BOOTSTRAP_SERVERS: "kafka:9092"          # ← Fixed
-      CONNECT_REST_ADVERTISED_HOST_NAME: "connect"
-      CONNECT_REST_PORT: 8083
-      CONNECT_GROUP_ID: "connect-group"
-      CONNECT_CONFIG_STORAGE_TOPIC: "connect-configs"
-      CONNECT_OFFSET_STORAGE_TOPIC: "connect-offsets"
-      CONNECT_STATUS_STORAGE_TOPIC: "connect-status"
-      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
-      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
-      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
-      CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components"
-      CONNECT_OFFSET_FLUSH_INTERVAL_MS: 10000
-      CONNECT_KEY_CONVERTER: "org.apache.kafka.connect.storage.StringConverter"
-      CONNECT_VALUE_CONVERTER: "org.apache.kafka.connect.storage.StringConverter"
-      CONNECT_INTERNAL_KEY_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
-      CONNECT_INTERNAL_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
-    command:
-      - bash
-      - -c
-      - |
-        echo "Waiting for Kafka to be ready..."
-        cub kafka-ready -b kafka:9092 1 60 || exit 1
-        echo "Kafka is ready. Installing JDBC connector..."
-        confluent-hub install --no-prompt confluentinc/kafka-connect-jdbc:latest
-        echo "Downloading PostgreSQL JDBC driver..."
-        wget https://jdbc.postgresql.org/download/postgresql-42.7.3.jar \
-          -P /usr/share/confluent-hub-components/confluentinc-kafka-connect-jdbc/lib/
-        echo "Starting Kafka Connect..."
-        /etc/confluent/docker/run
+  # connect:
+  #   image: confluentinc/cp-kafka-connect:7.5.0
+  #   container_name: connect
+  #   restart: unless-stopped
+  #   depends_on:
+  #     kafka:
+  #       condition: service_healthy
+  #   ports:
+  #     - "8083:8083"
+  #   environment:
+  #     CONNECT_BOOTSTRAP_SERVERS: "kafka:9092"          # ← Fixed
+  #     CONNECT_REST_ADVERTISED_HOST_NAME: "connect"
+  #     CONNECT_REST_PORT: 8083
+  #     CONNECT_GROUP_ID: "connect-group"
+  #     CONNECT_CONFIG_STORAGE_TOPIC: "connect-configs"
+  #     CONNECT_OFFSET_STORAGE_TOPIC: "connect-offsets"
+  #     CONNECT_STATUS_STORAGE_TOPIC: "connect-status"
+  #     CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
+  #     CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
+  #     CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
+  #     CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components"
+  #     CONNECT_OFFSET_FLUSH_INTERVAL_MS: 10000
+  #     CONNECT_KEY_CONVERTER: "org.apache.kafka.connect.storage.StringConverter"
+  #     CONNECT_VALUE_CONVERTER: "org.apache.kafka.connect.storage.StringConverter"
+  #     CONNECT_INTERNAL_KEY_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
+  #     CONNECT_INTERNAL_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
+  #   command:
+  #     - bash
+  #     - -c
+  #     - |
+  #       echo "Waiting for Kafka to be ready..."
+  #       cub kafka-ready -b kafka:9092 1 60 || exit 1
+  #       echo "Kafka is ready. Installing JDBC connector..."
+  #       confluent-hub install --no-prompt confluentinc/kafka-connect-jdbc:latest
+  #       echo "Downloading PostgreSQL JDBC driver..."
+  #       wget https://jdbc.postgresql.org/download/postgresql-42.7.3.jar \
+  #         -P /usr/share/confluent-hub-components/confluentinc-kafka-connect-jdbc/lib/
+  #       echo "Starting Kafka Connect..."
+  #       /etc/confluent/docker/run
   metabase:
     image: metabase/metabase:latest
     container_name: metabase
@@ -141,12 +168,12 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - postgres
+      - timescaledb
     hostname: metabase
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
 # Define the named volume (persists even if container is removed)
 volumes:
-  pgdata:
-  mssql2019-data:
+  timescaledb_data:
+  # mssql2019-data:

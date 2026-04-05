@@ -82,10 +82,10 @@ Focus: Build ingestion pipeline and core SQL analytics.
 
 - **Day 7: Load Full Dataset and Optimize DB**
   - Stream full 300k rows via Kafka into PostgreSQL.      Done
-  - Add advanced indexes: Composite on `(medical_condition, admission_type)`; partial indexes for frequent filters.
-  - Create materialized views: E.g., for average LOS by condition (`CREATE MATERIALIZED VIEW avg_los AS ...`).
-  - Tune PostgreSQL config: Adjust work_mem, shared_buffers for large queries.
-  - Run vacuum/analyze on tables post-load.
+  - Add advanced indexes: Composite on `(medical_condition, admission_type)`; partial indexes for frequent filters.     Done
+  - Create materialized views: E.g., for average LOS by condition (`CREATE MATERIALIZED VIEW avg_los AS ...`).    Done
+  - Tune PostgreSQL config: Adjust work_mem, shared_buffers for large queries.    Done
+  - Run vacuum/analyze on tables post-load.     Done
   - Milestone: Full dataset loaded; basic performance tweaks applied.
   - Estimated Effort: 6-7 hours.
 

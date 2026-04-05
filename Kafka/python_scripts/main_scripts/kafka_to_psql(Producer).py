@@ -21,8 +21,8 @@ DB_CONFIG = {
     'host': 'localhost',
     'port': '5432',
     'database': 'hospital_project',
-    'user': 'ali',
-    'password': 'ali@123'
+    'user': 'postgres',
+    'password': 'Hello@123'
 }
 
 def get_db_connection():
